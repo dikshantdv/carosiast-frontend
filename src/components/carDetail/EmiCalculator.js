@@ -202,7 +202,7 @@ function EmiCalculator(props) {
                   emiData.tenure
                 )
               )}{" "}
-              EMI fo r {emiData.tenure} years at {emiData.interest_rate}%
+              EMI for {emiData.tenure} years at {emiData.interest_rate}%
               interest
             </li>
           </Typography>
