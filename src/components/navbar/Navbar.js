@@ -93,7 +93,7 @@ function Navbar() {
                 </Stack>
             </Stack>
             <Stack px={1} py={0.5}>
-                <Stack direction='row' spacing={2} mx='auto' py={1}>
+                <Stack direction='row' spacing={2} py={1} justifyContent="center">
                     <NavButton to="/">Home</NavButton>
                     <NavButton to="/blogs">Blogs</NavButton>
                     <NavButton to="/brands">Brands</NavButton>

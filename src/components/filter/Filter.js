@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import { Box, Button, Fab, Rating, Stack, ToggleButton, Tooltip, Typography, } from "@mui/material"
+import { Box, Button, Fab, Rating, Stack, Tooltip, Typography, } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { NavLink, useLocation } from 'react-router-dom'
@@ -92,7 +92,7 @@ function CarSummaryCard(props) {
                         <KeyboardArrowRightRoundedIcon />
                     </CustomFab>}
                     className="mt-2"
-                // style={{ maxWidth: '100%', }}
+                    style={{ width: '100%', }}
                 >
                     {props.data.variants.map(variant =>
                         <Carousel.Item key={`variant-carousel-${variant._id}`} className="py-1 px-4">
@@ -104,7 +104,9 @@ function CarSummaryCard(props) {
                                         fontWeight={600}
                                         fullWidth
                                         sx={{
-                                            overflow: "hidden",
+                                            // whiteSpace: 'nowrap',
+                                            // // maxWidth: '100%',
+                                            overflowX: "hidden",
                                             textOverflow: "ellipsis",
                                             textTransform: 'initial',
                                             color: "var(--primary-color)",

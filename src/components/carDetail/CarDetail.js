@@ -208,7 +208,9 @@ function CarDetail() {
     console.log(state._id, state.variant);
     onLoadData();
   }, []);
-
+  useEffect(() => {
+    console.log(window.innerWidth);
+  }, [window.innerWidth])
   return (
     <>
       {loading ? (
