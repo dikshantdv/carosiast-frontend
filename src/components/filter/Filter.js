@@ -104,16 +104,18 @@ function CarSummaryCard(props) {
                                         fontWeight={600}
                                         fullWidth
                                         sx={{
-                                            // whiteSpace: 'nowrap',
-                                            // // maxWidth: '100%',
-                                            overflowX: "hidden",
-                                            textOverflow: "ellipsis",
+                                            maxWidth: '220px',
                                             textTransform: 'initial',
                                             color: "var(--primary-color)",
                                             bgcolor: 'rgba(24, 22, 71, 0.1)',
                                         }}
                                     >
-                                        {variant.name}
+                                        <span style={{
+                                            maxwidth: "180px",
+                                            whiteSpace: 'nowrap',
+                                            overflowX: "hidden",
+                                            textOverflow: "ellipsis",
+                                        }}>{variant.name}</span>
                                     </Button>
                                 </NavLink>
                             </Tooltip>

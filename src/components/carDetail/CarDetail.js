@@ -205,12 +205,12 @@ function CarDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(state._id, state.variant);
     onLoadData();
   }, []);
   useEffect(() => {
-    console.log(window.innerWidth);
-  }, [window.innerWidth])
+    window.scrollTo(0, 0);
+    onLoadData();
+  }, [state]);
   return (
     <>
       {loading ? (
@@ -481,6 +481,7 @@ function CarDetail() {
                             direction="row"
                             spacing={3}
                             justifyContent="space-between"
+                            sx={{ width: 164 }}
                           >
                             <Typography
                               fontWeight={600}
