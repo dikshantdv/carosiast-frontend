@@ -61,8 +61,6 @@ function CompareCars() {
     }
   };
 
-  const [carOneData, setCarOneData] = React.useState(state?.carOneData ?? []);
-  const [carTwoData, setCarTwoData] = React.useState(state?.carOneData ?? []);
   const [openVariantBoxOne, setOpenVariantBoxOne] = React.useState(false);
   const [openVariantBoxTwo, setOpenVariantBoxTwo] = React.useState(false);
   const [openModelBoxOne, setOpenModelBoxOne] = React.useState(false);
@@ -112,8 +110,7 @@ function CompareCars() {
 
   //   UseEffects
   React.useEffect(() => {
-    state && dispatch(getCompareData(carOneData?._id, 1));
-    // dispatch(getCompareData(carOneData?._id, 2));
+    state && dispatch(getCompareData(state?.carOneData?._id, 1));
   }, []);
 
   return (
