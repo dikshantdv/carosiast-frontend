@@ -44,7 +44,7 @@ const NavButton = styled((props) => (
   },
 }));
 
-const SearchBar = styled((props) => (
+export const SearchBar = styled((props) => (
   <TextField
     {...props}
     hiddenLabel
@@ -107,7 +107,7 @@ function Navbar() {
     const responseData = await axios.get(
       `https://carosiast-backend.onrender.com/cars/getSearchResult/${enteredValue}`
     );
-    console.log(responseData?.data?.cars);
+    // console.log(responseData?.data?.cars);
     setSearchData(responseData?.data?.cars);
     setSearchOpen(true);
   };
@@ -227,7 +227,7 @@ function Navbar() {
                           }}
                         />
                         <Stack direction="column" justifyContent="space-between" sx={{padding: "5px 0px"}}>
-                        <Typography fontWeight={500} fontSize="1.5rem">
+                        <Typography fontWeight={500} fontSize="1.5rem" sx={{textTransform: "capitalize"}}>
                           {item?.company} {item?.name}
                         </Typography>
                         <Typography fontWeight={500} fontSize="1.2rem">

@@ -22,18 +22,18 @@ const CarItem = styled((props) => (
     cursor: 'pointer',
 }))
 
-const CarItemImage = styled((props) => (
+export const CarItemImage = styled((props) => (
     <Box {...props} />
 ))(({ theme }) => ({
     width: 288,
-    height: 192,
+    apectRatio: "3/2",
     borderRadius: 'inherit',
     '& .car-image': {
         height: 'inherit',
         width: 'inherit',
         objectFit: 'cover',
         borderRadius: 'inherit',
-    }
+    },
 }))
 
 const CarItemSummary = styled((props) => (

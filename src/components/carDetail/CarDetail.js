@@ -87,7 +87,7 @@ const ColourSelector = styled((props) => (
   cursor: "pointer",
 }));
 
-const OptionBox = styled((props) => (
+export const OptionBox = styled((props) => (
   <Stack direction="row" justifyContent="space-between" {...props} />
 ))(({ theme }) => ({
   width: 200,
@@ -132,7 +132,7 @@ const KeySpecificationItem = styled((props) => (
   boxShadow: "1px 3px 6px rgba(0, 0, 0, 0.25) inset",
 }));
 
-const SpecificationAccordionSummary = styled((props) => (
+export const SpecificationAccordionSummary = styled((props) => (
   <AccordionSummary {...props} />
 ))(({ theme }) => ({
   "*": {
@@ -329,7 +329,7 @@ function CarDetail() {
                     <ChevronRightRoundedIcon fontSize="large" />
                   </Stack>
                 </OptionBox>
-                <NavLink to="/car/compare">
+                <NavLink to="/car/compare" state={{carOneData: detailData}}>
                   <OptionBox>
                     <Box className="option-detail">
                       <Typography>Compare Cars</Typography>
