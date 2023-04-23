@@ -9,6 +9,7 @@ import {
   TextField,
   Box,
   Typography,
+  Link,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
@@ -31,6 +32,22 @@ const NavButton = styled((props) => (
   <NavLink {...props} variant="outlined" sx={{ whiteSpace: "nowrap" }} />
 ))(({ theme }) => ({
   color: "black",
+  fontFamily: "inherit",
+  fontWeight: 600,
+  fontSize: "1rem",
+  border: `2px solid rgba(0,0,0,0)`,
+  borderRadius: "8px",
+  padding: "0px 8px !important",
+  "&.active, :hover": {
+    border: `2px solid ${theme.palette.common.black}`,
+  },
+}));
+
+const LinkButton = styled((props) => (
+  <Link {...props} variant="outlined" sx={{ whiteSpace: "nowrap" }} />
+))(({ theme }) => ({
+  color: "black",
+  textDecoration: "none",
   fontFamily: "inherit",
   fontWeight: 600,
   fontSize: "1rem",
@@ -167,12 +184,11 @@ function Navbar() {
       <Stack px={1} py={0.5}>
         <Stack direction="row" spacing={2} py={1} justifyContent="center">
           <NavButton to="/">Home</NavButton>
-          <NavButton to="/blogs">Blogs</NavButton>
-          <NavButton to="/brands">Brands</NavButton>
-          <NavButton to="/category">Category</NavButton>
+          <LinkButton href="https://blog.carosiast.com/" target="_blank">Blogs</LinkButton>
+          <LinkButton href="#brands">Brands</LinkButton>
+          <LinkButton href="#category">Category</LinkButton>
           <NavButton to="/about">About Us</NavButton>
           <NavButton to="/contact">Contact</NavButton>
-          <NavButton to="/more">More</NavButton>
         </Stack>
       </Stack>
 

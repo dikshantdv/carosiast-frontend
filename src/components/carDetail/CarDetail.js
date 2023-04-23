@@ -38,7 +38,7 @@ import { LoadingScreen } from "../Loading/Loading";
 import Carousel from "react-material-ui-carousel";
 import { Circle } from "@mui/icons-material";
 import EmiCalculator from "./EmiCalculator";
-import { setDetailData } from "../../store/DetailAction";
+import { setDetailData, setSelectedCarAndVariantData } from "../../store/DetailAction";
 import { setSelectedVariantData } from "../../store/DetailAction";
 import { priceAbbr } from "../priceAbbr";
 
@@ -199,8 +199,9 @@ function CarDetail() {
   };
 
   const onLoadData = async () => {
-    await dispatch(setDetailData(state._id, lat, long));
-    state.variant && dispatch(setSelectedVariantData(state.variant, state._id));
+    if (state?.variant){
+      dispatch(setSelectedCarAndVariantData(state._id, state.variant, lat, long));
+    }else dispatch(setDetailData(state._id, lat, long));
   };
 
   useEffect(() => {
@@ -329,7 +330,7 @@ function CarDetail() {
                     <ChevronRightRoundedIcon fontSize="large" />
                   </Stack>
                 </OptionBox>
-                <NavLink to="/car/compare" state={{carOneData: detailData}}>
+                <NavLink to="/car/compare" state={{ carOneData: detailData }}>
                   <OptionBox>
                     <Box className="option-detail">
                       <Typography>Compare Cars</Typography>
