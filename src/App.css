@@ -8,3 +8,24 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
