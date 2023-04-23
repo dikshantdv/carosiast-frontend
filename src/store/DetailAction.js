@@ -1,7 +1,5 @@
 import { detailActions } from "./DetailSlice";
 
-
-// carData with first available variant
 export const setDetailData = (_id, lat, lng) => {
   return async (dispatch) => {
     dispatch(detailActions.setDetailLoading(true));
@@ -55,7 +53,6 @@ export const setDetailData = (_id, lat, lng) => {
   };
 };
 
-// variant data fetching
 export const setSelectedVariantData = (_id, carId) => {
   return async (dispatch) => {
     dispatch(detailActions.setDetailLoading(true));
@@ -75,7 +72,24 @@ export const setSelectedVariantData = (_id, carId) => {
     dispatch(detailActions.setDetailLoading(false));
   };
 };
+export const setSelectedCityData = (cityName) => {
+  return async (dispatch) => {
+    const sendCityRequest = async () => {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=68bb7a7095aec3873d6c891c21c4fc55`
+      );
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
 
+      return data;
+    };
+    const selectedCity = await sendCityRequest();
+    dispatch(detailActions.replaceCityName(cityName));
+    dispatch(detailActions.replaceCoordinateData([selectedCity.coord.lat, selectedCity.coord.lon]));
+  };
+};
 
 // carData with selected variant data
 export const setSelectedCarAndVariantData = (_id, variantId, lat, lng) => {

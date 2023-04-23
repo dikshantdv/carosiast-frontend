@@ -18,11 +18,14 @@ import {
   DialogContent,
   ListItemButton,
   List,
+  Link,
+  Button,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import LaunchIcon from '@mui/icons-material/Launch';
 import { Image } from "react-bootstrap";
 import Engine from "../../assets/engine.png";
 import Transmission from "../../assets/manual-transmission.png";
@@ -32,13 +35,17 @@ import Mileage from "../../assets/speedometer.png";
 import Seat from "../../assets/car-seat.png";
 import CarLength from "../../assets/length.png";
 import Fuel from "../../assets/gasoline-pump.png";
+import googleMapImage from "../../assets/google-maps.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LoadingScreen } from "../Loading/Loading";
 import Carousel from "react-material-ui-carousel";
 import { Circle } from "@mui/icons-material";
 import EmiCalculator from "./EmiCalculator";
-import { setDetailData, setSelectedCarAndVariantData } from "../../store/DetailAction";
+import {
+  setDetailData,
+  setSelectedCarAndVariantData,
+} from "../../store/DetailAction";
 import { setSelectedVariantData } from "../../store/DetailAction";
 import { priceAbbr } from "../priceAbbr";
 
@@ -144,6 +151,14 @@ export const SpecificationAccordionSummary = styled((props) => (
   },
 }));
 
+const ShowroomCard = styled((props) => <Stack {...props} />)(({ theme }) => ({
+  width: "100%",
+  padding: 16,
+  backgroundColor: "#EFEFEF",
+  borderRadius: 30,
+  boxShadow: "1px 3px 6px rgba(0, 0, 0, 0.25) inset",
+}));
+
 // Emi calculator function
 const emiCalculate = (loanAmount, rate, years) => {
   const monthlyInterestRatio = rate / 100 / 12;
@@ -163,6 +178,9 @@ function CarDetail() {
     (state) => state.detail.selectedVariant
   );
   const allVariantsData = useSelector((state) => state.detail.car.variants);
+  const { showrooms, showroomLoading, cityName } = useSelector(
+    (state) => state.detail
+  );
 
   // Variant Box
   const [openVariantBox, setVariantBoxOpen] = useState(false);
@@ -199,9 +217,11 @@ function CarDetail() {
   };
 
   const onLoadData = async () => {
-    if (state?.variant){
-      dispatch(setSelectedCarAndVariantData(state._id, state.variant, lat, long));
-    }else dispatch(setDetailData(state._id, lat, long));
+    if (state?.variant) {
+      dispatch(
+        setSelectedCarAndVariantData(state._id, state.variant, lat, long)
+      );
+    } else dispatch(setDetailData(state._id, lat, long));
   };
 
   useEffect(() => {
@@ -211,7 +231,7 @@ function CarDetail() {
   useEffect(() => {
     window.scrollTo(0, 0);
     onLoadData();
-  }, [state]);
+  }, [state, lat]);
   return (
     <>
       {loading ? (
@@ -427,6 +447,65 @@ function CarDetail() {
                 </Accordion>
               ))}
             </Paper>
+          </Box>
+
+          <Box pl={1} mt={3}>
+            <Typography
+              variant="h4"
+              fontWeight={600}
+              sx={{ color: "var(--secondary-color) !important" }}
+              className="text-left"
+            >
+              Showrooms
+            </Typography>
+          </Box>
+          <Box mt={3}>
+            {showroomLoading ? (
+              " Loading..."
+            ) : showrooms?.length ? (
+              showrooms?.map((showroom, index) => {
+                return (
+                    <ShowroomCard direction="row" alignItems="center" justifyContent="space-between">
+                    <Stack direction="row" gap={2}>
+                      <Box width="32px" sx={{aspectRatio: 1}}>
+                        <img src={googleMapImage} alt="map-icon" width="32px"  style={{aspectRatio: 1, objectFit: "cover"}} />
+                      </Box>
+                      <Typography fontSize="20px"
+                        fontWeight={500}
+                        className="text-left"
+                        sx={{color: "var(--primary-color)"}}
+                      >
+                        {showroom?.name}, {cityName}
+                      </Typography>
+                    </Stack>
+                  <Link href={showroom?.link} target="_blank" sx={{textDecoration:"none"}}>
+                      <Button
+                        size="large"
+                        variant="text"
+                        color="success"
+                        sx={{
+                          borderRadius:"15px",
+                          textTransform: "none"
+                        }}
+                        startIcon={<LaunchIcon/>}
+                      >
+                        Launch Google Map
+                      </Button>
+                  </Link>
+                    </ShowroomCard>
+                );
+              })
+            ) : (
+              <Stack>
+                <Typography
+                  fontSize="20px"
+                  fontWeight={500}
+                  className="text-center"
+                >
+                  No Nearby Showrooms Found
+                </Typography>
+              </Stack>
+            )}
           </Box>
 
           {/* Variant Box */}

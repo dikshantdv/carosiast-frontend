@@ -7,7 +7,7 @@ const ImageBox = styled((props) => (
     <Box {...props} />
 ))(({ theme }) => ({
     width: "100%",
-    height: "50vh",
+    height: "360px",
     '& .home-img': {
         width: 'inherit',
         height: 'inherit',

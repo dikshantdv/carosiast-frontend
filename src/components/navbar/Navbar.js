@@ -1,8 +1,7 @@
 import React from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   AppBar,
-  Button,
   IconButton,
   InputAdornment,
   Stack,
@@ -14,11 +13,18 @@ import {
 import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import SearchIcon from "@mui/icons-material/Search";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AppLogo from "../../assets/logo.png";
 import { Image } from "react-bootstrap";
 import axios from "axios";
 import { priceAbbr } from "../priceAbbr";
+import FilterDialog from "../filter/FilterDialog";
+import { detailActions } from "../../store/DetailSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedCityData } from "../../store/DetailAction";
+import { useRef } from "react";
 
+// Custom Components
 const Logo = styled((props) => <Box {...props} />)(({ theme }) => ({
   width: 162,
   "& img": {
@@ -106,12 +112,69 @@ const SearchResultItem = styled((props) => <Stack {...props} />)(
   })
 );
 
+const LocationInput = styled((props) => (
+  <TextField
+    {...props}
+    hiddenLabel
+    // variant="standard"
+    size="small"
+    color="error"
+    inputProps={{
+      style: {
+        padding: 7,
+        fontFamily: "inherit",
+      },
+    }}
+    InputProps={{
+      startAdornment:
+        <InputAdornment position="start">
+            <LocationOnIcon sx={{ color: "var(--primary-color)" }} />
+        </InputAdornment>
+    }}
+  />
+))(({ theme }) => ({
+  backgroundColor: "#F3F3F3",
+  borderRadius: "7px",
+  "& .MuiInputBase-root": {
+    paddingRight: "0px",
+    borderRadius: "inherit",
+  },
+  "& input::placeholder": {
+    fontWeight: 500,
+    color: "rgba(0,0,0,)",
+  },
+}));
+
+const homepageurl = window.location.href.split("/").slice(0,3).join("/");
+
 function Navbar() {
+  const dispatch = useDispatch()
   const [searchValue, setSearchValue] = React.useState("");
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [searchData, setSearchData] = React.useState([]);
+  const [location, setLocation] = React.useState("");
 
-  const handleSearchClose = (id) => {   
+  const {cityName} = useSelector(state => state.detail)
+  // location fetching
+  async function current_location() {
+    const successfulLookup = async (location) => {
+    const nameData = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&limit=5&appid=68bb7a7095aec3873d6c891c21c4fc55`)
+      const data = await nameData.json();
+
+      dispatch(
+        detailActions.replaceCoordinateData([
+          location.coords.latitude,
+          location.coords.longitude,
+        ])
+      );
+      dispatch(
+        detailActions.replaceCityName(data[0].name.split(" ")[0])
+      )
+    }
+    await navigator.geolocation.getCurrentPosition(successfulLookup);
+  }
+
+  const handleSearchClose = (id) => {
     // navigate("/car/detail",{ state:{ _id: id }});
     setSearchOpen(false);
     setSearchData([]);
@@ -132,11 +195,22 @@ function Navbar() {
     if (searchKey.length > 0) {
       getData(searchKey);
     } else {
-        setSearchValue("");
-        setSearchOpen(false);
-        setSearchData([]);
+      setSearchValue("");
+      setSearchOpen(false);
+      setSearchData([]);
     }
   };
+
+  // locationapi
+  const handleLocationChange = (event) => {
+    event.preventDefault();
+    console.log(event.target[0].style.blur)
+    dispatch(setSelectedCityData(location));
+  };
+  React.useEffect(() => {
+    current_location();
+    setLocation(cityName);
+  }, []);
 
   return (
     <AppBar
@@ -148,47 +222,79 @@ function Navbar() {
     >
       <Stack
         direction="row"
-        justifyContent="space-around"
+        justifyContent="center"
         alignItems="center"
         px={3}
         py={2}
         sx={{ borderBottom: `3px solid ${grey[400]}` }}
       >
-        <NavLink to="/">
-          <Logo>
-            <Image src={AppLogo} rounded />
-          </Logo>
-        </NavLink>
-        <SearchBar
-          value={searchValue}
-          placeholder="Search Cars or Brands eg. Tiago, or Tata"
-          onChange={searchCars}
-        //   onBlur={handleSearchClose}
-        />
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            color="error"
-            size="small"
-            sx={{
-              color: "white",
-              backgroundColor: "error.main",
-              fontWeight: "bold",
-              fontFamily: "inherit",
-            }}
-          >
-            Login
-          </Button>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="90%"
+        >
+          <NavLink to="/">
+            <Logo>
+              <Image src={AppLogo} rounded />
+            </Logo>
+          </NavLink>
+          <SearchBar
+            value={searchValue}
+            placeholder="Search Cars or Brands eg. Tiago, or Tata"
+            onChange={searchCars}
+            //   onBlur={handleSearchClose}
+          />
+          {/* <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              color="error"
+              size="small"
+              sx={{
+                color: "white",
+                backgroundColor: "error.main",
+                fontWeight: "bold",
+                fontFamily: "inherit",
+              }}
+            >
+              Login
+            </Button>
+          </Stack> */}
+          <FilterDialog />
         </Stack>
       </Stack>
-      <Stack px={1} py={0.5}>
-        <Stack direction="row" spacing={2} py={1} justifyContent="center">
-          <NavButton to="/">Home</NavButton>
-          <LinkButton href="https://blog.carosiast.com/" target="_blank">Blogs</LinkButton>
-          <LinkButton href="#brands">Brands</LinkButton>
-          <LinkButton href="#category">Category</LinkButton>
-          <NavButton to="/about">About Us</NavButton>
-          <NavButton to="/contact">Contact</NavButton>
+      <Stack
+        direction="row"
+        px={3}
+        py={0.5}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="90%"
+        >
+          <Stack direction="row" spacing={1} alignItems="center">
+            <form onSubmit={handleLocationChange}>
+              <LocationInput
+                placeholder="Location"
+                defaultValue={cityName}
+                onChange={(event) => setLocation(event.target.value)}
+              />
+            </form>
+          </Stack>
+          <Stack direction="row" spacing={2} py={1} justifyContent="center">
+            <NavButton to="/">Home</NavButton>
+            <LinkButton href="https://blog.carosiast.com/" target="_blank">
+              Blogs
+            </LinkButton>
+            <LinkButton href={`${homepageurl}#brands`}>Brands</LinkButton>
+            <LinkButton href={`${homepageurl}#category`}>Category</LinkButton>
+            <NavButton to="/about">About Us</NavButton>
+            <NavButton to="/contact">Contact</NavButton>
+          </Stack>
         </Stack>
       </Stack>
 
@@ -229,26 +335,35 @@ function Navbar() {
                     }}
                   >
                     {/* {index === 0 ? ( */}
-                      <Stack direction="row" gap={2}>
-                        <img
-                          src={item.images}
-                          alt={item?.name}
-                          style={{
-                            width: "120px",
-                            aspectRatio: 3 / 2,
-                            objectFit: "cover",
-                            borderRadius: "10px",
-                          }}
-                        />
-                        <Stack direction="column" justifyContent="space-between" sx={{padding: "5px 0px"}}>
-                        <Typography fontWeight={500} fontSize="1.5rem" sx={{textTransform: "capitalize"}}>
+                    <Stack direction="row" gap={2}>
+                      <img
+                        src={item.images}
+                        alt={item?.name}
+                        style={{
+                          width: "120px",
+                          aspectRatio: 3 / 2,
+                          objectFit: "cover",
+                          borderRadius: "10px",
+                        }}
+                      />
+                      <Stack
+                        direction="column"
+                        justifyContent="space-between"
+                        sx={{ padding: "5px 0px" }}
+                      >
+                        <Typography
+                          fontWeight={500}
+                          fontSize="1.5rem"
+                          sx={{ textTransform: "capitalize" }}
+                        >
                           {item?.company} {item?.name}
                         </Typography>
                         <Typography fontWeight={500} fontSize="1.2rem">
-                          Rs. {priceAbbr(item?.minPrice)} - Rs. {priceAbbr(item?.maxPrice)}
+                          Rs. {priceAbbr(item?.minPrice)} - Rs.{" "}
+                          {priceAbbr(item?.maxPrice)}
                         </Typography>
                       </Stack>
-                      </Stack>
+                    </Stack>
                     {/* ) : (
                       <Typography fontWeight={500} fontSize="1.2rem">
                         {item?.company} {item?.name}

@@ -133,12 +133,12 @@ export default function Filter() {
     const dispatch = useDispatch()
     const loading = useSelector(state => state.carList.loading)
     const data = useSelector(state => state.carList.cars)
-    const location = useLocation()
+    const {state} = useLocation()
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        location.state.company && dispatch(setCarListData(`company=${location.state.company}`))
-        location.state.category && dispatch(setCarListData(`category=${location.state.category}`))
+        state.company && dispatch(setCarListData(`company=${state.company}`))
+        state.category && dispatch(setCarListData(`category=${state.category}`))
     }, [])
     return (
         <>{(loading) ? <LoadingScreen />
@@ -146,10 +146,11 @@ export default function Filter() {
             <Stack direction="column" gap={4} alignItems="center" className='mx-auto my-5' pb={3} sx={{ width: '85vw' }} >
                 <Typography className="text-center" fontSize={28} fontWeight={600}>
                     {/* Filter:&nbsp;s */}
-                    <span className='text-capitalize text-decoration-underline'>{location.state.company && `Brand- ${location.state.company}`}</span>
-                    <span className='text-decoration-underline'>{location.state.category && `Category- ${location.state.name}`}</span>
+                    {state?.company ? <span className='text-capitalize text-decoration-underline'>Brand- {state.company}</span>
+                    : state?.category ? <span className='text-decoration-underline'>Category- {state.name}</span>
+                    :<span className='text-decoration-underline'>Filtered Data</span>}
                 </Typography>
-                <Box className='d-grid' sx={{ gridTemplateColumns: 'repeat(auto-fill,minmax(288px,288px))', gap: 3, width: "100%" }}>
+                <Box className='d-grid' sx={{ gridTemplateColumns: 'repeat(auto-fill,minmax(288px,288px))', gap: 5, width: "100%", }}>
                     {data.map(car =>
                         <CarSummaryCard
                             key={`car-${car._id}`}
