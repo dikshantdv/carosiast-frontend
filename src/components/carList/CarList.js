@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { Box, Fab, Rating, Skeleton, Stack, Typography, } from '@mui/material'
 import { styled } from "@mui/material/styles"
@@ -21,18 +22,18 @@ const CarItem = styled((props) => (
     cursor: 'pointer',
 }))
 
-const CarItemImage = styled((props) => (
+export const CarItemImage = styled((props) => (
     <Box {...props} />
 ))(({ theme }) => ({
     width: 288,
-    height: 192,
+    apectRatio: "3/2",
     borderRadius: 'inherit',
     '& .car-image': {
         height: 'inherit',
         width: 'inherit',
         objectFit: 'cover',
         borderRadius: 'inherit',
-    }
+    },
 }))
 
 const CarItemSummary = styled((props) => (
@@ -165,8 +166,8 @@ export default function CarList(props) {
                             </Carousel.Item>
                         )
                         :
-                        [0, 1, 2, 3].map(skeleton => <Carousel.Item>
-                            <CarItem key={`trending-skeleton-${skeleton}`}>
+                        [0, 1, 2, 3].map(skeleton => <Carousel.Item key={`trending-skeleton-${skeleton}`}>
+                            <CarItem>
                                 <Skeleton animation="wave" variant="rounded" width={288} height={192} sx={{ borderRadius: 'inherit !important' }} />
                                 <CarItemSummary>
                                     <Skeleton animation="wave" variant="rounded" width={180} height={30} />

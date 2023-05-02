@@ -49,7 +49,7 @@ function CategorySlider() {
     const categoryData = useSelector((state) => state.category.categories)
 
     return (
-        <Box my={4}>
+        <Box my={4} id="category">
             <Typography variant="h4">
                 <b>Category</b>
             </Typography>

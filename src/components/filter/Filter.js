@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import { Box, Button, Fab, Rating, Stack, ToggleButton, Tooltip, Typography, } from "@mui/material"
+import { Box, Button, Fab, Rating, Stack, Tooltip, Typography, } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { NavLink, useLocation } from 'react-router-dom'
@@ -92,7 +92,7 @@ function CarSummaryCard(props) {
                         <KeyboardArrowRightRoundedIcon />
                     </CustomFab>}
                     className="mt-2"
-                // style={{ maxWidth: '100%', }}
+                    style={{ width: '100%', }}
                 >
                     {props.data.variants.map(variant =>
                         <Carousel.Item key={`variant-carousel-${variant._id}`} className="py-1 px-4">
@@ -104,14 +104,18 @@ function CarSummaryCard(props) {
                                         fontWeight={600}
                                         fullWidth
                                         sx={{
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
+                                            maxWidth: '220px',
                                             textTransform: 'initial',
                                             color: "var(--primary-color)",
                                             bgcolor: 'rgba(24, 22, 71, 0.1)',
                                         }}
                                     >
-                                        {variant.name}
+                                        <span style={{
+                                            maxwidth: "180px",
+                                            whiteSpace: 'nowrap',
+                                            overflowX: "hidden",
+                                            textOverflow: "ellipsis",
+                                        }}>{variant.name}</span>
                                     </Button>
                                 </NavLink>
                             </Tooltip>
@@ -129,12 +133,12 @@ export default function Filter() {
     const dispatch = useDispatch()
     const loading = useSelector(state => state.carList.loading)
     const data = useSelector(state => state.carList.cars)
-    const location = useLocation()
+    const {state} = useLocation()
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        location.state.company && dispatch(setCarListData(`company=${location.state.company}`))
-        location.state.category && dispatch(setCarListData(`category=${location.state.category}`))
+        state.company && dispatch(setCarListData(`company=${state.company}`))
+        state.category && dispatch(setCarListData(`category=${state.category}`))
     }, [])
     return (
         <>{(loading) ? <LoadingScreen />
@@ -142,10 +146,11 @@ export default function Filter() {
             <Stack direction="column" gap={4} alignItems="center" className='mx-auto my-5' pb={3} sx={{ width: '85vw' }} >
                 <Typography className="text-center" fontSize={28} fontWeight={600}>
                     {/* Filter:&nbsp;s */}
-                    <span className='text-capitalize text-decoration-underline'>{location.state.company && `Brand- ${location.state.company}`}</span>
-                    <span className='text-decoration-underline'>{location.state.category && `Category- ${location.state.name}`}</span>
+                    {state?.company ? <span className='text-capitalize text-decoration-underline'>Brand- {state.company}</span>
+                    : state?.category ? <span className='text-decoration-underline'>Category- {state.name}</span>
+                    :<span className='text-decoration-underline'>Filtered Data</span>}
                 </Typography>
-                <Box className='d-grid' sx={{ gridTemplateColumns: 'repeat(auto-fill,minmax(288px,288px))', gap: 3, width: "100%" }}>
+                <Box className='d-grid' sx={{ gridTemplateColumns: 'repeat(auto-fill,minmax(288px,288px))', gap: 5, width: "100%", }}>
                     {data.map(car =>
                         <CarSummaryCard
                             key={`car-${car._id}`}

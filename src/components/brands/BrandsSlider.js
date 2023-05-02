@@ -43,7 +43,7 @@ const CustomFab = styled((props) => (
 function BrandsSlider() {
     const brandData = useSelector(state => state.brand.brands)
     return (
-        <Box my={4}>
+        <Box my={4} id="brands">
             <Typography variant="h4">
                 <b>Brands</b>
             </Typography>
