@@ -23,8 +23,8 @@ import { setCarListData } from "../../store/CarListAction";
 import { useDispatch } from "react-redux";
 
 function FilterDialog() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openFilterBox, setOpenFilterBox] = React.useState(false);
   const [filterData, setFilterData] = React.useState({
     minPrice: null,
@@ -96,7 +96,7 @@ function FilterDialog() {
         query = query + "&";
       }
       filterData.fuelType.forEach((el) => {
-        query = query ? query + `fuel=${el}` : `fuel=${el}` ;
+        query = query ? query + `fuel=${el}` : `fuel=${el}`;
         if (filterData.fuelType.slice(-1) !== el) {
           query = query + "&";
         }
@@ -108,9 +108,11 @@ function FilterDialog() {
       }
       filterData.transmission.forEach((el) => {
         if (el === "Manual") {
-          query = query ?  query + `transmission=${el}` : `transmission=${el}`;
+          query = query ? query + `transmission=${el}` : `transmission=${el}`;
         } else {
-          query = query ? query + `transmission[$ne]=${el}` :  `transmission[$ne]=${el}`;
+          query = query
+            ? query + `transmission[$ne]=${el}`
+            : `transmission[$ne]=${el}`;
         }
 
         if (filterData.transmission.slice(-1) !== el) {
@@ -119,7 +121,7 @@ function FilterDialog() {
       });
     }
     handleFilterBoxClose();
-    dispatch(setCarListData(query))
+    dispatch(setCarListData(query));
     navigate("/filter");
   };
 
@@ -193,6 +195,7 @@ function FilterDialog() {
                           </InputAdornment>
                         ),
                       }}
+                      inputProps={{ min: 0 }}
                       sx={{
                         width: "100%",
                         "& .MuiInputBase-root": {
@@ -231,6 +234,7 @@ function FilterDialog() {
                           </InputAdornment>
                         ),
                       }}
+                      inputProps={{ min: 0 }}
                       sx={{
                         width: "100%",
                         "& .MuiInputBase-root": {
