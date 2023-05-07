@@ -25,7 +25,7 @@ import { styled } from "@mui/material/styles";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import LaunchIcon from '@mui/icons-material/Launch';
+import LaunchIcon from "@mui/icons-material/Launch";
 import { Image } from "react-bootstrap";
 import Engine from "../../assets/engine.png";
 import Transmission from "../../assets/manual-transmission.png";
@@ -465,34 +465,48 @@ function CarDetail() {
             ) : showrooms?.length ? (
               showrooms?.map((showroom, index) => {
                 return (
-                    <ShowroomCard direction="row" alignItems="center" justifyContent="space-between">
+                  <ShowroomCard
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
                     <Stack direction="row" gap={2}>
-                      <Box width="32px" sx={{aspectRatio: 1}}>
-                        <img src={googleMapImage} alt="map-icon" width="32px"  style={{aspectRatio: 1, objectFit: "cover"}} />
+                      <Box width="32px" sx={{ aspectRatio: 1 }}>
+                        <img
+                          src={googleMapImage}
+                          alt="map-icon"
+                          width="32px"
+                          style={{ aspectRatio: 1, objectFit: "cover" }}
+                        />
                       </Box>
-                      <Typography fontSize="20px"
+                      <Typography
+                        fontSize="20px"
                         fontWeight={500}
                         className="text-left"
-                        sx={{color: "var(--primary-color)"}}
+                        sx={{ color: "var(--primary-color)" }}
                       >
                         {showroom?.name}, {cityName}
                       </Typography>
                     </Stack>
-                  <Link href={showroom?.link} target="_blank" sx={{textDecoration:"none"}}>
+                    <Link
+                      href={showroom?.link}
+                      target="_blank"
+                      sx={{ textDecoration: "none" }}
+                    >
                       <Button
                         size="large"
                         variant="text"
                         color="success"
                         sx={{
-                          borderRadius:"15px",
-                          textTransform: "none"
+                          borderRadius: "15px",
+                          textTransform: "none",
                         }}
-                        startIcon={<LaunchIcon/>}
+                        startIcon={<LaunchIcon />}
                       >
                         Launch Google Map
                       </Button>
-                  </Link>
-                    </ShowroomCard>
+                    </Link>
+                  </ShowroomCard>
                 );
               })
             ) : (
