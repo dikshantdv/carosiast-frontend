@@ -2,6 +2,7 @@ import React from "react";
 import {
   Button,
   Checkbox,
+  Chip,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -171,7 +172,7 @@ function FilterDialog() {
               }}
             >
               <TableBody>
-                <TableRow>
+                <TableRow sx={{ height: "56px" }}>
                   <TableCell>
                     <Typography
                       fontWeight={500}
@@ -210,7 +211,7 @@ function FilterDialog() {
                     />
                   </TableCell>
                 </TableRow>
-                <TableRow>
+                <TableRow sx={{ height: "56px" }}>
                   <TableCell>
                     <Typography
                       fontWeight={500}
@@ -249,7 +250,7 @@ function FilterDialog() {
                     />
                   </TableCell>
                 </TableRow>
-                <TableRow>
+                <TableRow sx={{ height: "56px" }}>
                   <TableCell>
                     <Typography
                       fontWeight={500}
@@ -260,12 +261,24 @@ function FilterDialog() {
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <FormGroup sx={{ flexDirection: "row", gap: 3 }}>
+                    <FormGroup sx={{ flexDirection: "row", gap: 2, ml: 2 }}>
                       <FormControlLabel
-                        label="Automatic"
+                        label={
+                          <Chip
+                            color="error"
+                            label="Automatic"
+                            variant={
+                              filterData.transmission.includes("Automatic")
+                                ? "contained"
+                                : "outlined"
+                            }
+                            sx={{ width: "100px", cursor: "pointer" }}
+                          />
+                        }
                         control={
                           <Checkbox
                             value="Automatic"
+                            hidden
                             checked={filterData.transmission.includes(
                               "Automatic"
                             )}
@@ -274,10 +287,22 @@ function FilterDialog() {
                         }
                       />
                       <FormControlLabel
-                        label="Manual"
+                        label={
+                          <Chip
+                            color="error"
+                            label="Manual"
+                            variant={
+                              filterData.transmission.includes("Manual")
+                                ? "contained"
+                                : "outlined"
+                            }
+                            sx={{ width: "100px", cursor: "pointer" }}
+                          />
+                        }
                         control={
                           <Checkbox
                             value="Manual"
+                            hidden
                             checked={filterData.transmission.includes("Manual")}
                             onChange={handleTransmissionCheckbox}
                           />
@@ -286,7 +311,7 @@ function FilterDialog() {
                     </FormGroup>
                   </TableCell>
                 </TableRow>
-                <TableRow>
+                <TableRow sx={{ height: "56px" }}>
                   <TableCell>
                     <Typography
                       fontWeight={500}
@@ -297,22 +322,46 @@ function FilterDialog() {
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <FormGroup sx={{ flexDirection: "row", gap: 8 }}>
+                    <FormGroup sx={{ flexDirection: "row", gap: 2, ml: 2 }}>
                       <FormControlLabel
-                        label="Petrol"
+                        label={
+                          <Chip
+                            color="error"
+                            label="Petrol"
+                            variant={
+                              filterData.fuelType.includes("Petrol")
+                                ? "contained"
+                                : "outlined"
+                            }
+                            sx={{ width: "100px", cursor: "pointer" }}
+                          />
+                        }
                         control={
                           <Checkbox
                             value="Petrol"
+                            hidden
                             checked={filterData.fuelType.includes("Petrol")}
                             onChange={handleFuelCheckbox}
                           />
                         }
                       />
                       <FormControlLabel
-                        label="Diesel"
+                        label={
+                          <Chip
+                            color="error"
+                            label="Diesel"
+                            variant={
+                              filterData.fuelType.includes("Diesel")
+                                ? "contained"
+                                : "outlined"
+                            }
+                            sx={{ width: "100px", cursor: "pointer" }}
+                          />
+                        }
                         control={
                           <Checkbox
                             value="Diesel"
+                            hidden
                             checked={filterData.fuelType.includes("Diesel")}
                             onChange={handleFuelCheckbox}
                           />
