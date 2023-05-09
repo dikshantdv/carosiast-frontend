@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialMenuState = {
   menus: [
     {
-      title: "Trending Cars",
+      title: "Pradeep Cars",
       url: "https://carosiast-backend.onrender.com/cars/getTrending",
     },
     {
