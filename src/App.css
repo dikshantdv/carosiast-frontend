@@ -13,6 +13,13 @@
   padding-left: 8px !important;
 }
 
+.footer-link {
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+.footer-link:hover, .footer-link:active {
+  color: var(--secondary-color) !important;
+}
 
 /* width */
 ::-webkit-scrollbar {

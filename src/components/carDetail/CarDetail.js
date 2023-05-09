@@ -466,6 +466,7 @@ function CarDetail() {
               showrooms?.map((showroom, index) => {
                 return (
                   <ShowroomCard
+                    key={index}
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"

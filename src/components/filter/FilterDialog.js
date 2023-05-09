@@ -184,6 +184,7 @@ function FilterDialog() {
                   </TableCell>
                   <TableCell>
                     <TextField
+                      color="error"
                       type="number"
                       name="minPrice"
                       value={filterData.minPrice ?? ""}
@@ -223,6 +224,7 @@ function FilterDialog() {
                   </TableCell>
                   <TableCell>
                     <TextField
+                      color="error"
                       type="number"
                       name="maxPrice"
                       value={filterData.maxPrice ?? ""}
@@ -265,7 +267,6 @@ function FilterDialog() {
                       <FormControlLabel
                         label={
                           <Chip
-                            color="error"
                             label="Automatic"
                             variant={
                               filterData.transmission.includes("Automatic")
@@ -289,7 +290,6 @@ function FilterDialog() {
                       <FormControlLabel
                         label={
                           <Chip
-                            color="error"
                             label="Manual"
                             variant={
                               filterData.transmission.includes("Manual")
@@ -326,7 +326,6 @@ function FilterDialog() {
                       <FormControlLabel
                         label={
                           <Chip
-                            color="error"
                             label="Petrol"
                             variant={
                               filterData.fuelType.includes("Petrol")
@@ -348,7 +347,6 @@ function FilterDialog() {
                       <FormControlLabel
                         label={
                           <Chip
-                            color="error"
                             label="Diesel"
                             variant={
                               filterData.fuelType.includes("Diesel")

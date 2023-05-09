@@ -126,18 +126,29 @@ const LocationInput = styled((props) => (
       },
     }}
     InputProps={{
-      startAdornment:
+      startAdornment: (
         <InputAdornment position="start">
-            <LocationOnIcon sx={{ color: "var(--primary-color)" }} />
+          <LocationOnIcon sx={{ color: "var(--primary-color)" }} />
         </InputAdornment>
+      ),
     }}
   />
 ))(({ theme }) => ({
-  backgroundColor: "#F3F3F3",
+  "&:hover, :focus": {
+    backgroundColor: "#F3F3F3",
+  },
   borderRadius: "7px",
   "& .MuiInputBase-root": {
-    paddingRight: "0px",
+    fontWeight: "500",
+    fontSize: "1rem !important",
+    bgcolor: "#FFFFFF",
     borderRadius: "inherit",
+    borderColor: "#FFFFFF",
+    paddingRight: "0px",
+  },
+  "& *, *:focus, *:active": {
+    borderWidth: "0px",
+    outlineWidth: "0px",
   },
   "& input::placeholder": {
     fontWeight: 500,
@@ -145,20 +156,22 @@ const LocationInput = styled((props) => (
   },
 }));
 
-const homepageurl = window.location.href.split("/").slice(0,3).join("/");
+const homepageurl = window.location.href.split("/").slice(0, 3).join("/");
 
 function Navbar() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = React.useState("");
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [searchData, setSearchData] = React.useState([]);
   const [location, setLocation] = React.useState("");
 
-  const {cityName} = useSelector(state => state.detail)
+  const { cityName } = useSelector((state) => state.detail);
   // location fetching
   async function current_location() {
     const successfulLookup = async (location) => {
-    const nameData = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&limit=5&appid=68bb7a7095aec3873d6c891c21c4fc55`)
+      const nameData = await fetch(
+        `http://api.openweathermap.org/geo/1.0/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&limit=5&appid=68bb7a7095aec3873d6c891c21c4fc55`
+      );
       const data = await nameData.json();
 
       dispatch(
@@ -167,10 +180,8 @@ function Navbar() {
           location.coords.longitude,
         ])
       );
-      dispatch(
-        detailActions.replaceCityName(data[0].name.split(" ")[0])
-      )
-    }
+      dispatch(detailActions.replaceCityName(data[0].name.split(" ")[0]));
+    };
     await navigator.geolocation.getCurrentPosition(successfulLookup);
   }
 
@@ -204,7 +215,7 @@ function Navbar() {
   // locationapi
   const handleLocationChange = (event) => {
     event.preventDefault();
-    console.log(event.target[0].style.blur)
+    console.log(event.target[0].style.blur);
     dispatch(setSelectedCityData(location));
   };
   React.useEffect(() => {
@@ -292,8 +303,9 @@ function Navbar() {
             </LinkButton>
             <LinkButton href={`${homepageurl}#brands`}>Brands</LinkButton>
             <LinkButton href={`${homepageurl}#category`}>Category</LinkButton>
-            <NavButton to="/about">About Us</NavButton>
-            <NavButton to="/contact">Contact</NavButton>
+            <NavButton to="/car/compare">Compare</NavButton>
+            {/* <NavButton to="/about">About Us</NavButton>
+            <NavButton to="/contact">Contact</NavButton> */}
           </Stack>
         </Stack>
       </Stack>
