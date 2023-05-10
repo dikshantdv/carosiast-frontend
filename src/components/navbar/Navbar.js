@@ -194,7 +194,7 @@ function Navbar() {
 
   const getData = async (enteredValue) => {
     const responseData = await axios.get(
-      `https://carosiast-backend.onrender.com/cars/getSearchResult/${enteredValue}`
+      `http://44.202.0.125/cars/getSearchResult/${enteredValue}`
     );
     // console.log(responseData?.data?.cars);
     setSearchData(responseData?.data?.cars);

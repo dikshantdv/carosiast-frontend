@@ -4,11 +4,11 @@ const initialMenuState = {
   menus: [
     {
       title: "Trending Cars",
-      url: "https://carosiast-backend.onrender.com/cars/getTrending",
+      url: "http://44.202.0.125/cars/getTrending",
     },
     {
       title: "Latest Cars",
-      url: "https://carosiast-backend.onrender.com/cars/getLatest",
+      url: "http://44.202.0.125/cars/getLatest",
     },
   ],
 };

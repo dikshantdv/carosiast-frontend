@@ -47,7 +47,7 @@ function CompareCars() {
 
   const getData = async (enteredValue) => {
     const responseData = await axios.get(
-      `https://carosiast-backend.onrender.com/cars/getSearchResult/${enteredValue}`
+      `http://44.202.0.125/cars/getSearchResult/${enteredValue}`
     );
     // console.log(responseData?.data?.cars);
     setSearchData(responseData?.data?.cars);
@@ -156,7 +156,7 @@ function CompareCars() {
                 </>
               ) : (
                 <>
-                <CarItemImage
+                  <CarItemImage
                     onClick={() => setOpenModelBoxOne(true)}
                     sx={{
                       width: 480,
@@ -363,7 +363,7 @@ function CompareCars() {
                     sx={{ borderTop: "1px solid #4D4C4C", minWidth: "100%" }}
                   >
                     <ListItemButton
-                      selected={(carOne?._id === item._id) ?? null}
+                      selected={carOne?._id === item._id ?? null}
                       onClick={(event) => handleModelOneClick(event, item._id)}
                     >
                       <Stack direction="row" gap={2}>
@@ -382,7 +382,11 @@ function CompareCars() {
                           justifyContent="space-between"
                           sx={{ padding: "5px 0px" }}
                         >
-                          <Typography fontWeight={500} fontSize="1.5rem" sx={{textTransform: "capitalize"}}>
+                          <Typography
+                            fontWeight={500}
+                            fontSize="1.5rem"
+                            sx={{ textTransform: "capitalize" }}
+                          >
                             {item?.company} {item?.name}
                           </Typography>
                           <Typography fontWeight={500} fontSize="1.2rem">
@@ -531,7 +535,7 @@ function CompareCars() {
                     sx={{ borderTop: "1px solid #4D4C4C", minWidth: "100%" }}
                   >
                     <ListItemButton
-                      selected={(carTwo?._id === item._id) ?? null}
+                      selected={carTwo?._id === item._id ?? null}
                       onClick={(event) => handleModelTwoClick(event, item._id)}
                     >
                       <Stack direction="row" gap={2}>
@@ -550,7 +554,11 @@ function CompareCars() {
                           justifyContent="space-between"
                           sx={{ padding: "5px 0px" }}
                         >
-                          <Typography fontWeight={500} fontSize="1.5rem" sx={{textTransform: "capitalize"}}>
+                          <Typography
+                            fontWeight={500}
+                            fontSize="1.5rem"
+                            sx={{ textTransform: "capitalize" }}
+                          >
                             {item?.company} {item?.name}
                           </Typography>
                           <Typography fontWeight={500} fontSize="1.2rem">

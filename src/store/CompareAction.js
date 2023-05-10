@@ -4,9 +4,7 @@ export const getCompareData = (_id, number) => {
   return async (dispatch) => {
     dispatch(compareActions.setCompareLoading(true));
     const sendRequest = async () => {
-      const response = await fetch(
-        `https://carosiast-backend.onrender.com/cars/${_id}`
-      );
+      const response = await fetch(`http://44.202.0.125/cars/${_id}`);
       if (!response.ok) {
         return;
       }
@@ -18,7 +16,7 @@ export const getCompareData = (_id, number) => {
     const carData = await sendRequest();
     const sendVariantRequest = async () => {
       const response = await fetch(
-        `https://carosiast-backend.onrender.com/cars/${_id}/variants/${carData.car.variants[0]._id}`
+        `http://44.202.0.125/cars/${_id}/variants/${carData.car.variants[0]._id}`
       );
       if (!response.ok) {
         return;
@@ -44,7 +42,7 @@ export const getSelectedVariantData = (_id, carId, number) => {
     dispatch(compareActions.setCompareLoading(true));
     const sendVariantRequest = async () => {
       const response = await fetch(
-        `https://carosiast-backend.onrender.com/cars/${carId}/variants/${_id}`
+        `http://44.202.0.125/cars/${carId}/variants/${_id}`
       );
       if (!response.ok) {
         return;
