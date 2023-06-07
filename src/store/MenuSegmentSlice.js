@@ -4,11 +4,11 @@ const initialMenuState = {
   menus: [
     {
       title: "Trending Cars",
-      url: "http://44.202.0.125/cars/getTrending",
+      url: "http://3.83.80.79//cars/getTrending",
     },
     {
       title: "Latest Cars",
-      url: "http://44.202.0.125/cars/getLatest",
+      url: "http://3.83.80.79//cars/getLatest",
     },
   ],
 };

@@ -194,7 +194,7 @@ function Navbar() {
 
   const getData = async (enteredValue) => {
     const responseData = await axios.get(
-      `http://44.202.0.125/cars/getSearchResult/${enteredValue}`
+      `http://3.83.80.79//cars/getSearchResult/${enteredValue}`
     );
     // console.log(responseData?.data?.cars);
     setSearchData(responseData?.data?.cars);

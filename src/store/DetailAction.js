@@ -6,7 +6,7 @@ export const setDetailData = (_id, lat, lng) => {
     dispatch(detailActions.setShowroomLoading(true));
 
     const sendRequest = async () => {
-      const response = await fetch(`http://44.202.0.125/cars/${_id}`);
+      const response = await fetch(`http://3.83.80.79//cars/${_id}`);
       if (!response.ok) {
         return;
       }
@@ -19,7 +19,7 @@ export const setDetailData = (_id, lat, lng) => {
     console.log(carData.car.variants[0]._id);
     const sendVariantRequest = async () => {
       const response = await fetch(
-        `http://44.202.0.125/cars/${_id}/variants/${carData.car.variants[0]._id}`
+        `http://3.83.80.79//cars/${_id}/variants/${carData.car.variants[0]._id}`
       );
       if (!response.ok) {
         return;
@@ -35,7 +35,7 @@ export const setDetailData = (_id, lat, lng) => {
     dispatch(detailActions.setDetailLoading(false));
     const sendShowroomRequest = async () => {
       const response = await fetch(
-        `http://44.202.0.125/companies/${carData.car.company}/showrooms/within/50/center/${lat},${lng}`
+        `http://3.83.80.79//companies/${carData.car.company}/showrooms/within/50/center/${lat},${lng}`
       );
       if (!response.ok) {
         return;
@@ -56,7 +56,7 @@ export const setSelectedVariantData = (_id, carId) => {
     dispatch(detailActions.setDetailLoading(true));
     const sendVariantRequest = async () => {
       const response = await fetch(
-        `http://44.202.0.125/cars/${carId}/variants/${_id}`
+        `http://3.83.80.79//cars/${carId}/variants/${_id}`
       );
       if (!response.ok) {
         return;
@@ -101,7 +101,7 @@ export const setSelectedCarAndVariantData = (_id, variantId, lat, lng) => {
     dispatch(detailActions.setShowroomLoading(true));
 
     const sendRequest = async () => {
-      const response = await fetch(`http://44.202.0.125/cars/${_id}`);
+      const response = await fetch(`http://3.83.80.79//cars/${_id}`);
       if (!response.ok) {
         return;
       }
@@ -113,7 +113,7 @@ export const setSelectedCarAndVariantData = (_id, variantId, lat, lng) => {
     const carData = await sendRequest();
     const sendVariantRequest = async () => {
       const response = await fetch(
-        `http://44.202.0.125/cars/${_id}/variants/${variantId}`
+        `http://3.83.80.79//cars/${_id}/variants/${variantId}`
       );
       if (!response.ok) {
         return;
@@ -129,7 +129,7 @@ export const setSelectedCarAndVariantData = (_id, variantId, lat, lng) => {
     dispatch(detailActions.setDetailLoading(false));
     const sendShowroomRequest = async () => {
       const response = await fetch(
-        `http://44.202.0.125/companies/${carData.car.company}/showrooms/within/50/center/${lat},${lng}`
+        `http://3.83.80.79//companies/${carData.car.company}/showrooms/within/50/center/${lat},${lng}`
       );
       if (!response.ok) {
         return;
